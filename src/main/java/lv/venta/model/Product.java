@@ -1,5 +1,10 @@
 package lv.venta.model;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,9 +20,22 @@ public class Product {
 	@Setter(value = AccessLevel.NONE)// priekš ID nebūs automatiskais sets
 	private int id;
 	
+	@NotNull
+	@Size(min = 3, max = 20)
+	@Pattern(regexp = "[A-Z]{1}[a-z]+")
 	private String title;
+	
+	@NotNull
+	@Size(min = 4, max = 200)
+	@Pattern(regexp = "[A-Za-z .:!]+")
 	private String description;
+	
+	@Min(0)
+	@Max(10000)
 	private float price;
+	
+	@Min(0)
+	@Max(100)
 	private int quantity;
 	
 	private static int counter = 1;
@@ -25,11 +43,15 @@ public class Product {
 	public void setId() {
 		this.id = counter++;
 	}
-	public Product(String title, String description, float price, int quantity) {
-		setId();
-		setTitle(title);
-		setDescription(description);
-		setPrice(price);
-		setQuantity(quantity);
+
+	public Product(@NotNull @Size(min = 3, max = 20) @Pattern(regexp = "[A-Z]{1}[a-z]+") String title,
+			@NotNull @Size(min = 4, max = 200) @Pattern(regexp = "[A-Za-z .:!]+") String description,
+			@Min(0) @Max(10000) float price, @Min(0) @Max(100) int quantity) {
+		super();
+		this.title = title;
+		this.description = description;
+		this.price = price;
+		this.quantity = quantity;
 	}
+	
 }

@@ -2,15 +2,17 @@
 	
 <body>
 	
+	
 	<table>
 		<tr th:each="tempPr: ${mydata}">
-					<p th:text="${tempPr.getTitle()}"></p>
-					<p th:text="${tempPr.getDescription()}"></p>
-					<p th:text="${tempPr.getPrice()}"></p>
-					<p th:text="${tempPr.getQuantity()}"></p>
-					<p th:text="${tempPr.toString()}"></p>
+			<td th:text="${tempPr.getId()}"></td>
+			<td th:text="${tempPr.getTitle()}"></td>
+			<td th:text="${tempPr.getDescription()}"></td>
+			<td th:text="${tempPr.getPrice()}"></td>
+			<td th:text="${tempPr.getQuantity()}"></td>
+	
 		</tr>
-		
+	
 	</table>	
 	
 </body>
