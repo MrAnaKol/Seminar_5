@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	
+<body>
+	
+	<table>
+		<tr th:each="tempPr: ${mydata}">
+					<p th:text="${tempPr.getTitle()}"></p>
+					<p th:text="${tempPr.getDescription()}"></p>
+					<p th:text="${tempPr.getPrice()}"></p>
+					<p th:text="${tempPr.getQuantity()}"></p>
+					<p th:text="${tempPr.toString()}"></p>
+		</tr>
+		
+	</table>	
+	
+</body>
+
+
+</html>
