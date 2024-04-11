@@ -6,11 +6,20 @@ import java.util.Arrays;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lv.venta.model.Product;
 
 @Controller
 public class FirstController {
+	
+	/*
+	private Product tempProduct = new Product("Abols", "Zilgan-zaļš", 0.99f, 5);
+	private Product tempProduct2 = new Product("Zemene", "Salda", 1.99f, 50);
+	private Product tempProduct3 = new Product("Burkans", "Oranžš", 0.39f, 500);
+	private ArrayList<Product> allProducts = new ArrayList<>(Arrays.asList(tempProduct,tempProduct2, tempProduct3));
+	*/
 	
 	@GetMapping("/hello")//localhost:8080/hello
 	public String getHello() {
@@ -34,10 +43,44 @@ public class FirstController {
 	
 	@GetMapping("/product/test2")//localhost:8080/product/test2
 	public String getProductTest2(Model model) {
-		Product tempProduct = new Product("Abols", "Zilgan-zaļš", 0.99f, 5);
-		Product tempProduct2 = new Product("Bumbiers", "Dzeltens", 0.5f, 3);
-		ArrayList<Product> allproducts = new ArrayList<>(Arrays.asList(tempProduct,tempProduct2));
-		model.addAttribute("mydata", allproducts);
+		
+		model.addAttribute("mydata", allProducts);
 		return "product-array-show-page";//tiek parādīta product-one-show-page.html lapa
+	}
+	
+	@GetMapping("/product/one") //localhost:8080/product/one?id=5
+	public String getProductOneId(@RequestParam("id")int id, Model model) {
+		if(id >= 0) {
+			for(Product tempP: allProducts) {
+				if(tempP.getId() == id) {
+					model.addAttribute("mydata", tempP);
+					return "product-one-show-page";
+				}
+			}
+			model.addAttribute("errormsg", "Product is not found");
+			return "error-page"; // tiek parādīta error.page.html lapa
+		}
+		else {
+			model.addAttribute("errormsg", "Id should be positive");
+			return "error-page"; // tiek parādīta error.page.html lapa
+		}
+	}
+	
+	@GetMapping("/product/all/{id{") //localhost:8080/product/all/2
+	public String getProductAllId(@PathVariable("id")int id, Model model) {
+		if(id >= 0) {
+			for(Product tempP: allProducts) {
+				if(tempP.getId() == id) {
+					model.addAttribute("mydata", tempP);
+					return "product-one-show-page";
+				}
+			}
+			model.addAttribute("errormsg", "Product is not found");
+			return "error-page"; // tiek parādīta error.page.html lapa
+		}
+		else {
+			model.addAttribute("errormsg", "Id should be positive");
+			return "error-page"; // tiek parādīta error.page.html lapa
+		}
 	}
 }
