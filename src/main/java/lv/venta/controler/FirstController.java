@@ -169,4 +169,46 @@ public class FirstController {
 			return "error-page";// tiek parādīta error-page.html lapa
 		}
 	}
+	
+	@GetMapping("/product/filter/quantity/{threshold}") //localhost:8080/product/filter/quantity/{threshold}
+	public String getProductFilterByQuantity(@PathVariable("threshold") float threshold, Model model) {
+		
+		try {
+			ArrayList<Product> filterProducts = filterService.filterByQuantityLessThanThreshold(threshold);		
+			model.addAttribute("mydata", filterProducts);
+			model.addAttribute("msg", "Products filtered by quantity: " + threshold);
+			return "product-array-show-page";
+		} catch (Exception e) {
+			model.addAttribute("errormsg", e.getMessage());
+			return "error-page";// tiek parādīta error-page.html lapa
+		}
+	}
+	
+	@GetMapping("/product/filter/titleordescription/{text}") //localhost:8080/product/filter/titleordescription/{text}
+	public String getProductFilterByTitleOrDescription(@PathVariable("text") String text, Model model) {
+		
+		try {
+			ArrayList<Product> filterProducts = filterService.filterByTitleOrDescription(text);		
+			model.addAttribute("mydata", filterProducts);
+			model.addAttribute("msg", "Products filtered by title or description: " + text);
+			return "product-array-show-page";
+		} catch (Exception e) {
+			model.addAttribute("errormsg", e.getMessage());
+			return "error-page";// tiek parādīta error-page.html lapa
+		}
+	}
+	
+	@GetMapping("/product/filter/totalprice") //localhost:8080/product/filter/totalprice
+	public String getProductFilterByTitleOrDescription(Model model) {
+		
+		try {
+			float price = filterService.calculateProductTotalValue();
+			model.addAttribute("mydata", price + " eur");
+			model.addAttribute("msg", "All product total price: ");
+			return "hello-msg-page";
+		} catch (Exception e) {
+			model.addAttribute("errormsg", e.getMessage());
+			return "error-page";// tiek parādīta error-page.html lapa
+		}
+	}
 }
