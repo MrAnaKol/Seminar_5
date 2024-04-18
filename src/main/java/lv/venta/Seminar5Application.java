@@ -27,6 +27,11 @@ public class Seminar5Application {
 				productRepo.save(p1);
 				productRepo.save(p2);
 				productRepo.save(p3);
+				System.out.println("How Many: " + productRepo.count());//3
+				System.out.println("Get: " + productRepo.findById(2).get());//arbuzam
+				Product updatedPr = productRepo.findById(2).get();//arbuzs
+				updatedPr.setQuantity(20);
+				productRepo.save(updatedPr);//seit jau jabut 20 arbuzam
 			}
 		};
 	}
