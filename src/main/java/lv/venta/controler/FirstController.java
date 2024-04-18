@@ -1,5 +1,7 @@
 package lv.venta.controler;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,6 +49,7 @@ public class FirstController {
 	public String getProductTest2(Model model) {
 		try {
 			model.addAttribute("mydata", crudService.retrieveAll());
+			model.addAttribute("msg", "All products");
 			return "product-array-show-page";//
 		} catch (Exception e) {
 			model.addAttribute("errormsg", e.getMessage());
@@ -144,6 +147,7 @@ public class FirstController {
 		try {
 			crudService.deleteById(id);
 			model.addAttribute("mydata", crudService.retrieveAll());
+			model.addAttribute("msg", "All products");
 			return "product-array-show-page";
 
 		} catch (Exception e) {
@@ -152,4 +156,17 @@ public class FirstController {
 		}
 	}
 	
+	@GetMapping("/product/filter/price/{threshold}") //localhost:8080/product/filter/price/{threshold}
+	public String getProductFilterByPrice(@PathVariable("threshold") float threshold, Model model) {
+		
+		try {
+			ArrayList<Product> filterProducts = filterService.filterByPriceLessThanThreshold(threshold);		
+			model.addAttribute("mydata", filterProducts);
+			model.addAttribute("msg", "Products filtered by price: " + threshold + " eur");
+			return "product-array-show-page";
+		} catch (Exception e) {
+			model.addAttribute("errormsg", e.getMessage());
+			return "error-page";// tiek parādīta error-page.html lapa
+		}
+	}
 }

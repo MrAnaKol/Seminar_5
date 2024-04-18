@@ -16,7 +16,7 @@ public class ProductServiceImp implements ICRUDProductService, IFilterProductSer
 	private ArrayList<Product> allProducts = new ArrayList<>(Arrays.asList(
 			new Product("Abols", "Zilgan-zaļš", 0.99f, 5),
 			new Product("Zemene", "Salda", 1.99f, 50), 
-			new Product("Burkans", "Oranžš", 0.39f, 500)));
+			new Product("Burkans", "Oranžs", 0.39f, 500)));
 	@Override
 	public ArrayList<Product> filterByPriceLessThanThreshold(float threshold) throws Exception {
 		if (threshold < 0 || threshold > 10000) throw new Exception("The limit of price is of bounds");
