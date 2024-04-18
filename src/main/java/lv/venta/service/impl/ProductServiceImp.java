@@ -54,7 +54,7 @@ public class ProductServiceImp implements ICRUDProductService, IFilterProductSer
 		ArrayList<Product> result = new ArrayList<>();
 		
 		for(Product tempP: allProducts) {
-			if(tempP.getTitle().contains(text) || tempP.getDescription().contains(text)) {
+			if(tempP.getTitle().toLowerCase().contains(text) || tempP.getDescription().toLowerCase().contains(text)) {
 				result.add(tempP);
 			}
 		}
