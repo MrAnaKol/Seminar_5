@@ -66,7 +66,6 @@ public class Product {
 	public Product(@NotNull @Size(min = 3, max = 20) @Pattern(regexp = "[A-Z]{1}[a-z ]+") String title,
 			@NotNull @Size(min = 4, max = 200) @Pattern(regexp = "[A-Za-z .:!]+") String description,
 			@Min(0) @Max(10000) float price, @Min(0) @Max(100) int quantity) {
-		setId();
 		this.title = title;
 		this.description = description;
 		this.price = price;
