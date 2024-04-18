@@ -2,7 +2,7 @@
 	<body>
 		<p>Please insert new product!</p>
 		
-		<form th:action="@{/product/insert}" th:object="${product}" th:method="post">
+		<form th:action="@{/product/update/__${id}__}" th:object="${product}" th:method="post">
 			<table>
 				<tr>
 					<td>Title:</td>

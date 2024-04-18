@@ -86,7 +86,7 @@ public class FirstController {
 	}
 	
 	@PostMapping("/product/insert")
-	public String postProductInsert(@Valid Product product, BindingResult result) {//iegūstam aju aizpildītu produktu
+	public String postProductInsert(@Valid Product product, BindingResult result) {//iegūstam jau aizpildītu produktu
 		//sajā gadījumā ir validāciju pāŗkāpumi Product objektam
 		if(result.hasErrors()) {
 			return "product-insert-page";//paliekam šajā pašā lapā
@@ -98,7 +98,6 @@ public class FirstController {
 					product.getPrice(), product.getQuantity());
 				return "redirect:/product/test2";//tiks pārvirzīts jeb izsaukts localhost:8080/product/all
 			} catch (Exception e) {
-			
 				return "redirect:/error";//tiks pārvirzīts jeb izsaukt loclahost:8080/error
 			}
 		}
@@ -109,4 +108,48 @@ public class FirstController {
 	public String getError() {
 		return "error-page";
 	}
+	
+	@GetMapping("/product/update/{id}") //localhost:8080/product/update/{id}
+	public String getProductUpdateById(@PathVariable("id") int id, Model model) {
+		try {
+			Product updatedProduct = crudService.retrieveById(id);
+			model.addAttribute("product", updatedProduct);
+			return "product-update-page";
+		} catch (Exception e) {
+			model.addAttribute("errormsg", e.getMessage());
+			return "error-page";// tiek parādīta error-page.html lapa
+		}
+	}
+	
+	@PostMapping("/product/update/{id}")
+	public String postProductUpdateById(@Valid Product product, BindingResult result, @PathVariable("id") int id) {//iegūstam jau aizpildītu produktu
+		//sajā gadījumā ir validāciju pāŗkāpumi Product objektam
+		if(result.hasErrors()) {
+			return "product-update-page";//paliekam šajā pašā lapā
+		}
+		else
+		{
+			try {
+				crudService.updateByID(id, product.getTitle(), product.getDescription(), 
+					product.getPrice(), product.getQuantity());
+				return "redirect:/product/test2";//tiks pārvirzīts jeb izsaukts localhost:8080/product/all
+			} catch (Exception e) {
+				return "redirect:/error";//tiks pārvirzīts jeb izsaukt loclahost:8080/error
+			}
+		}
+	}
+	
+	@GetMapping("/product/delete") //localhost:8080/product/delete?id={id}
+	public String getProductDeleteById(@RequestParam("id")int id, Model model) {
+		try {
+			crudService.deleteById(id);
+			model.addAttribute("mydata", crudService.retrieveAll());
+			return "product-array-show-page";
+
+		} catch (Exception e) {
+			model.addAttribute("errormsg", e.getMessage());
+			return "error-page";// tiek parādīta error-page.html lapa
+		}
+	}
+	
 }
