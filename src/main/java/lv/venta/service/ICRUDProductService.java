@@ -6,10 +6,17 @@ import lv.venta.model.Product;
 
 public interface ICRUDProductService {
 	
-	Product create(String title, String description, float price, int quantity) throws Exception;
-	ArrayList<Product> retrieveAll() throws Exception;
-	Product retrieveById(int id) throws Exception;
-	void updateByID(int id, String title, String description, float price, int quantity) throws Exception;
-	void deleteById(int id) throws Exception;
+	//CRUD - create - retrieve - update - delete
+	public abstract Product create(String title, String description,
+			float price, int quantity) throws Exception;
+	
+	public abstract ArrayList<Product> retrieveAll() throws Exception;
+	
+	public abstract Product retrieveById(int id)throws Exception;
+	
+	public abstract void updateById(int id, String title, String description,
+			float price, int quantity) throws Exception;
+	
+	public abstract void deleteById(int id) throws Exception;
 	
 }

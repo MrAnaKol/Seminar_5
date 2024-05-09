@@ -1,7 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
-	
+
 <body>
-	
 	<p th:text="${msg}"></p>
 	<table>
 		<tr th:each="tempPr: ${mydata}">
@@ -10,11 +9,13 @@
 			<td th:text="${tempPr.getDescription()}"></td>
 			<td th:text="${tempPr.getPrice()}"></td>
 			<td th:text="${tempPr.getQuantity()}"></td>
-	
+
 		</tr>
-	
-	</table>	
-	
+
+	</table>
+
+
+
 </body>
 
 
