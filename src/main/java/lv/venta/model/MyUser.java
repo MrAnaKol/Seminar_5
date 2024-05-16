@@ -52,8 +52,8 @@ public class MyUser {
 	public MyUser(String username, String password, MyAuthority ...  auths) {
 		setUsername(username);
 		setPassword(password);
-		for(MyAuthority authority : auths) {
-			authorities.add(authority);
+		for(MyAuthority tempA : auths) {
+			addAuthority(tempA);
 		}
 	}
 	public void addAuthority(MyAuthority authority) {
