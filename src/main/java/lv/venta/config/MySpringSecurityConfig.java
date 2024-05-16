@@ -1,17 +1,23 @@
 package lv.venta.config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+//TODO uztaisīt divas modeļu kalses MyUser un MyAuthority 
+//.izveidot abiem repositopriju
+//Comandline runner funkcijā izveidot 2 lietotajums un piesiatīt 2 lomas
+
+
 
 @Configuration
 @EnableWebSecurity
@@ -33,7 +39,7 @@ public class MySpringSecurityConfig {
 		UserDetails u2Details = 
 				User
 				.builder()
-				.username("anatolijs")
+				.username("karina")
 				.password(encoder.encode("123"))
 				.authorities("USER")
 				.build();
@@ -56,13 +62,19 @@ public class MySpringSecurityConfig {
 				.requestMatchers("/product/update**").hasAuthority("ADMIN")
 				.requestMatchers("/product/delete/**").hasAuthority("ADMIN")
 				.requestMatchers("/product/filter/**").hasAnyAuthority("USER", "ADMIN")
+				.requestMatchers("/h2-console/**").hasAuthority("ADMIN")
 				);
 		
-		//http.formLogin().permitAll();
+		http.csrf(csrf->csrf.disable());
+		http.headers(frame->frame.frameOptions(option->option.disable()));
 		
 		http.formLogin(form -> form.permitAll());
+		
 		
 		return http.build();
 		
 	}
+	
+	
+
 }

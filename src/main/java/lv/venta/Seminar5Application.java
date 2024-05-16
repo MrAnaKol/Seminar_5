@@ -24,7 +24,8 @@ public class Seminar5Application {
 	
 
 	@Bean //sī funkcija stratēsies automātiski, pēc programmas palaišanas
-	public CommandLineRunner testModelLayer(IProductRepo productRepo, IMyAuthorityRepo authRepo, IMyUserRepo userRepo) {
+	public CommandLineRunner testModelLayer(IProductRepo productRepo,
+			IMyAuthorityRepo authRepo, IMyUserRepo userRepo) {
 		return new CommandLineRunner() {
 			
 			@Override
@@ -50,11 +51,12 @@ public class Seminar5Application {
 				PasswordEncoder encoder =
 					    PasswordEncoderFactories.createDelegatingPasswordEncoder();
 				MyUser u1 = new MyUser("admin", encoder.encode("admin"), a1);
-				MyUser u2 = new MyUser("anatolijs", encoder.encode("123"), a2);
-				MyUser u3 = new MyUser("kintija", encoder.encode("qwerty"), a1, a2);
+				MyUser u2 = new MyUser("karina", encoder.encode("123"), a2);
+				MyUser u3 = new MyUser("janis", encoder.encode("qwerty"), a1, a2);
 				userRepo.save(u1);
 				userRepo.save(u2);
 				userRepo.save(u3);
+				
 				
 				a1.addUser(u1);
 				a1.addUser(u3);
@@ -62,6 +64,13 @@ public class Seminar5Application {
 				a2.addUser(u3);
 				a2.addUser(u2);
 				authRepo.save(a2);
+				
+				
+				
+				
+				
+				
+				
 			}
 		};
 	}

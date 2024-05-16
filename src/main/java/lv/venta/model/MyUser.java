@@ -36,7 +36,7 @@ public class MyUser {
 	
 	@NotNull
 	@Size(min = 3, max = 20)
-	@Pattern(regexp = "[A-Z]{1}[a-z.]+", message = "Only letters and dot allowed")
+	@Pattern(regexp = "[A-Za-z.]+", message = "Only letters and dot allowed")
 	@Column(name = "Username")
 	private String username;
 	
