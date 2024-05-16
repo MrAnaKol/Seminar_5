@@ -48,8 +48,8 @@ public class MySpringSecurityConfig {
 				.requestMatchers("/product/delete/**").hasAuthority("ADMIN")
 				.requestMatchers("/product/filter/**").hasAnyAuthority("USER", "ADMIN")
 				.requestMatchers("/h2-console/**").hasAuthority("ADMIN")
-				);
-		
+				);//.exceptionHandling(exp -> exp.accessDeniedPage("/access-denied"));
+		//http.exceptionHandling(exp -> exp.accessDeniedPage("/access-denied")); // nosaka uz kuru url adresi japarlec
 		http.csrf(csrf->csrf.disable());
 		http.headers(frame->frame.frameOptions(option->option.disable()));
 		
