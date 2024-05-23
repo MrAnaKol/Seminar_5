@@ -23,7 +23,7 @@ public class Seminar5Application {
 	
 	
 
-	@Bean //sī funkcija stratēsies automātiski, pēc programmas palaišanas
+	//@Bean //sī funkcija stratēsies automātiski, pēc programmas palaišanas
 	public CommandLineRunner testModelLayer(IProductRepo productRepo,
 			IMyAuthorityRepo authRepo, IMyUserRepo userRepo) {
 		return new CommandLineRunner() {
